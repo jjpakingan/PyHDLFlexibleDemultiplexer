@@ -1,2 +1,6 @@
 *.vcd
 *.vhd
+incremental_db/
+db/
+output_files/
+simulation/
