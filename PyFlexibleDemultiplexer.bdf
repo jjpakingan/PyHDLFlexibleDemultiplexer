@@ -22,9 +22,9 @@ https://fpgasoftware.intel.com/eula.
 (header "graphic" (version "1.4"))
 (pin
 	(input)
-	(rect -16 72 152 88)
+	(rect -72 72 96 88)
 	(text "INPUT" (rect 125 0 154 10)(font "Arial" (font_size 6)))
-	(text "pin_in" (rect 5 0 36 11)(font "Arial" ))
+	(text "pin_in" (rect 5 0 35 11)(font "Arial" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -35,13 +35,13 @@ https://fpgasoftware.intel.com/eula.
 		(line (pt 109 12)(pt 113 8))
 	)
 	(text "VCC" (rect 128 7 149 17)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect -80 88 -24 104))
+	(annotation_block (location)(rect -160 32 -104 48))
 )
 (pin
 	(input)
 	(rect -64 136 104 152)
 	(text "INPUT" (rect 125 0 154 10)(font "Arial" (font_size 6)))
-	(text "pin_sel0" (rect 5 0 49 13)(font "Intel Clear" ))
+	(text "pin_sel0" (rect 5 0 48 13)(font "Intel Clear" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -57,7 +57,7 @@ https://fpgasoftware.intel.com/eula.
 	(input)
 	(rect -64 168 104 184)
 	(text "INPUT" (rect 125 0 154 10)(font "Arial" (font_size 6)))
-	(text "pin_sel1" (rect 5 0 48 13)(font "Intel Clear" ))
+	(text "pin_sel1" (rect 5 0 47 13)(font "Intel Clear" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -73,7 +73,7 @@ https://fpgasoftware.intel.com/eula.
 	(input)
 	(rect -64 192 104 208)
 	(text "INPUT" (rect 125 0 154 10)(font "Arial" (font_size 6)))
-	(text "pin_sel2" (rect 5 0 48 13)(font "Intel Clear" ))
+	(text "pin_sel2" (rect 5 0 47 13)(font "Intel Clear" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -368,16 +368,8 @@ https://fpgasoftware.intel.com/eula.
 	(pt 440 304)
 )
 (connector
-	(pt 184 120)
-	(pt 184 80)
-)
-(connector
 	(pt 192 120)
 	(pt 184 120)
-)
-(connector
-	(pt 184 80)
-	(pt 152 80)
 )
 (connector
 	(text "pins_select[2..0]" (rect 168 120 250 133)(font "Intel Clear" ))
@@ -390,6 +382,14 @@ https://fpgasoftware.intel.com/eula.
 	(pt 408 120)
 	(pt 440 120)
 	(bus)
+)
+(connector
+	(pt 184 120)
+	(pt 184 80)
+)
+(connector
+	(pt 96 80)
+	(pt 184 80)
 )
 (junction (pt 168 176))
 (junction (pt 168 144))
