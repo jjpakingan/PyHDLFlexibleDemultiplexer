@@ -11,10 +11,12 @@ Environment:
     Altera Quartus Prime 19.1 Lite Edition 
 '''
 UNIT_TEST_ENABLE = 0
+RUN_TEST_BENCH = 1
+RUN_CONVERSION = 0
 
 from myhdl import *
 import unittest
-
+from random import randrange
 
 
 # -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -32,16 +34,18 @@ def getSignalBool():
 # -|F|l|e|x|i|b|l|e|-|D|e|m|u|l|t|i|p|l|e|x|e|r|
 # -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-# def flexibleDemux(q, d, clk):
+MUX_NUM_BIT_OUT = 8
+MUX_SEL_NUM_BIT = 3
+
 def flexibleDemux(pin_in, pins_select, pins_out):
 
     @always_comb
     def logic():
         intPinSel = pins_select
 
-        pinOutBufferVal = getIntbV(8) #TODO refactor the hardcoded value
+        pinOutBufferVal = getIntbV(MUX_NUM_BIT_OUT)
         
-        for x in range(0,8):
+        for x in range(0,MUX_NUM_BIT_OUT):
             if pin_in==1 and intPinSel==x:
                 pinOutBufferVal[x] = 1
             else:
@@ -53,11 +57,44 @@ def flexibleDemux(pin_in, pins_select, pins_out):
     return logic
 
 def convert():
-    pins_select = Signal(getIntbV(3))
-    pins_out = Signal(getIntbV(8))
+    pins_select = Signal(getIntbV(MUX_SEL_NUM_BIT))
+    pins_out = Signal(getIntbV(MUX_NUM_BIT_OUT))
     pin_in = getSignalBool()
     toVHDL(flexibleDemux, pin_in, pins_select, pins_out)
 
+
+
+# -+-+-+-+-+-+-+-+-+-+-+
+# -|T|e|s|t|-|B|e|n|c|h|
+# -+-+-+-+-+-+-+-+-+-+-+
+
+# Test Bench example: Implementation
+
+ACTIVE_LOW = 0
+
+def testbench():
+
+    clk = getSignalBool()
+    pins_select = Signal(getIntbV(MUX_SEL_NUM_BIT))
+    pins_out = Signal(getIntbV(MUX_NUM_BIT_OUT))
+    pin_in = getSignalBool()
+
+    flexDemuxInst = flexibleDemux(pin_in, pins_select, pins_out)
+
+    @always(delay(10))
+    def clkgen():
+        clk.next = not clk
+
+    @always(clk.negedge)
+    def stimulus():
+        pin_in.next = randrange(2)
+
+    return flexDemuxInst, clkgen, stimulus
+
+def simulate(timesteps=5000):
+    tb = traceSignals(testbench)
+    sim = Simulation(tb)
+    sim.run(timesteps)
 
 # -+-+-+-+-+-+-+-+-+-+
 # -|U|n|i|t|-|T|e|s|t|
@@ -87,5 +124,7 @@ class TestStringMethods(unittest.TestCase):
 
 if UNIT_TEST_ENABLE:
     unittest.main()
-else:
+if RUN_CONVERSION:
     convert()
+if RUN_TEST_BENCH:
+    simulate()
