@@ -1,5 +1,4 @@
--|F|l|e|x|i|b|l|e|-|D|e|m|u|l|t|i|p|l|e|x|e|r|  
-
+Flexible Demultiplexer Project
 
 Environment:  
 Ubuntu Linux  
