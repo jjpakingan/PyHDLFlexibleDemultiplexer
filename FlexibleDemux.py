@@ -10,7 +10,7 @@ Environment:
     Visual Studio Code
     Altera Quartus Prime 19.1 Lite Edition 
 '''
-UNIT_TEST_ENABLE = 1
+UNIT_TEST_ENABLE = 0
 
 from myhdl import *
 import unittest
@@ -24,25 +24,39 @@ import unittest
 def getIntbV(numBit):
     return intbv(0)[numBit:]
 
+def getSignalBool():
+    return Signal(bool(0))
 
 
 # -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 # -|F|l|e|x|i|b|l|e|-|D|e|m|u|l|t|i|p|l|e|x|e|r|
 # -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-def flexibleDemux(q, d, clk):
-# def flexibleDemux(pin_in, pins_select, pins_out):
+# def flexibleDemux(q, d, clk):
+def flexibleDemux(pin_in, pins_select, pins_out):
 
-    @always(clk.posedge)
+    @always_comb
     def logic():
-        q.next = d
+        intPinSel = pins_select
+
+        pinOutBufferVal = getIntbV(8) #TODO refactor the hardcoded value
+        
+        for x in range(0,8):
+            if pin_in==1 and intPinSel==x:
+                pinOutBufferVal[x] = 1
+            else:
+                pinOutBufferVal[x] = 0
+
+        pins_out.next = pinOutBufferVal
+
 
     return logic
 
 def convert():
-    a = intbv(24, min=0, max=25)
-    q, d, clk = [Signal(bool(0)) for i in range(3)]
-    toVHDL(flexibleDemux, q, d, clk)
+    pins_select = Signal(getIntbV(3))
+    pins_out = Signal(getIntbV(8))
+    pin_in = getSignalBool()
+    toVHDL(flexibleDemux, pin_in, pins_select, pins_out)
 
 
 # -+-+-+-+-+-+-+-+-+-+
