@@ -49,7 +49,6 @@ def flexibleDemux(pin_in, pins_select, pins_out):
     @always_comb
     def logic():
         intPinSel = pins_select
-
         pinOutBufferVal = getIntbV(MUX_NUM_BIT_OUT)
         
         for x in range(0,MUX_NUM_BIT_OUT):
@@ -59,7 +58,6 @@ def flexibleDemux(pin_in, pins_select, pins_out):
                 pinOutBufferVal[x] = 0
 
         pins_out.next = pinOutBufferVal
-
 
     return logic
 
