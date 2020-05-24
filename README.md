@@ -1,14 +1,13 @@
--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
--|F|l|e|x|i|b|l|e|-|D|e|m|u|l|t|i|p|l|e|x|e|r|
--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+-|F|l|e|x|i|b|l|e|-|D|e|m|u|l|t|i|p|l|e|x|e|r|  
 
-Environment:
-Ubuntu Linux
-Altera Quartus Lite 19.1
-MyHDL
-Python 3
-Visual Studio Code
-GTKWave for VCD wave viewing
+
+Environment:  
+Ubuntu Linux  
+Altera Quartus Lite 19.1  
+MyHDL  
+Python 3  
+Visual Studio Code  
+GTKWave for VCD wave viewing  
 
 Author: Jeff P
 
