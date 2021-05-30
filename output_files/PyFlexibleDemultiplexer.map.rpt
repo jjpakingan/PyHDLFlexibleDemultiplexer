@@ -1,6 +1,6 @@
 Analysis & Synthesis report for PyFlexibleDemultiplexer
-Sat May 23 16:44:22 2020
-Quartus Prime Version 19.1.0 Build 670 09/22/2019 SJ Lite Edition
+Sun May 30 15:12:26 2021
+Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
 
 
 ---------------------
@@ -10,14 +10,15 @@ Quartus Prime Version 19.1.0 Build 670 09/22/2019 SJ Lite Edition
   2. Analysis & Synthesis Summary
   3. Analysis & Synthesis Settings
   4. Parallel Compilation
-  5. Analysis & Synthesis Messages
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Messages
 
 
 
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 2019  Intel Corporation. All rights reserved.
+Copyright (C) 2020  Intel Corporation. All rights reserved.
 Your use of Intel Corporation's design tools, logic functions 
 and other software and tools, and any partner logic 
 functions, and any output files from any of the foregoing 
@@ -37,8 +38,8 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                              ;
 +-----------------------------+---------------------------------------------+
-; Analysis & Synthesis Status ; Failed - Sat May 23 16:44:22 2020           ;
-; Quartus Prime Version       ; 19.1.0 Build 670 09/22/2019 SJ Lite Edition ;
+; Analysis & Synthesis Status ; Failed - Sun May 30 15:12:26 2021           ;
+; Quartus Prime Version       ; 20.1.1 Build 720 11/11/2020 SJ Lite Edition ;
 ; Revision Name               ; PyFlexibleDemultiplexer                     ;
 ; Top-level Entity Name       ; PyFlexibleDemultiplexer                     ;
 ; Family                      ; MAX II                                      ;
@@ -132,27 +133,51 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------+-------------+
 
 
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                      ;
++----------------------------------+-----------------+------------------------------------------+-----------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                                ; File Name with Absolute Path                                                      ; Library ;
++----------------------------------+-----------------+------------------------------------------+-----------------------------------------------------------------------------------+---------+
+; pck_myhdl_011.vhd                ; yes             ; User VHDL File                           ; D:/Projects/altera quartus/PyHDLFlexibleDemultiplexer/pck_myhdl_011.vhd           ;         ;
+; flexibleDemux.vhd                ; yes             ; User VHDL File                           ; D:/Projects/altera quartus/PyHDLFlexibleDemultiplexer/flexibleDemux.vhd           ;         ;
+; pyflexibledemultiplexer.bdf      ; yes             ; Auto-Found Block Diagram/Schematic File  ; D:/Projects/altera quartus/PyHDLFlexibleDemultiplexer/pyflexibledemultiplexer.bdf ;         ;
++----------------------------------+-----------------+------------------------------------------+-----------------------------------------------------------------------------------+---------+
+
+
 +-------------------------------+
 ; Analysis & Synthesis Messages ;
 +-------------------------------+
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
-    Info: Version 19.1.0 Build 670 09/22/2019 SJ Lite Edition
-    Info: Processing started: Sat May 23 16:44:07 2020
+    Info: Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
+    Info: Processing started: Sun May 30 15:11:38 2021
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off PyFlexibleDemultiplexer -c PyFlexibleDemultiplexer
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
 Info (12021): Found 2 design units, including 0 entities, in source file pck_myhdl_011.vhd
-    Info (12022): Found design unit 1: pck_myhdl_011 File: /home/jjj/altera/FlexibleMux/pck_myhdl_011.vhd Line: 10
-    Info (12022): Found design unit 2: pck_myhdl_011-body File: /home/jjj/altera/FlexibleMux/pck_myhdl_011.vhd Line: 49
-Info (12021): Found 2 design units, including 1 entities, in source file flexibleDemux.vhd
-    Info (12022): Found design unit 1: flexibleDemux-MyHDL File: /home/jjj/altera/FlexibleMux/flexibleDemux.vhd Line: 22
-    Info (12023): Found entity 1: flexibleDemux File: /home/jjj/altera/FlexibleMux/flexibleDemux.vhd Line: 13
-Error (12007): Top-level design entity "PyFlexibleDemultiplexer" is undefined
-Error: Quartus Prime Analysis & Synthesis was unsuccessful. 1 error, 1 warning
-    Error: Peak virtual memory: 931 megabytes
-    Error: Processing ended: Sat May 23 16:44:22 2020
-    Error: Elapsed time: 00:00:15
-    Error: Total CPU time (on all processors): 00:00:36
+    Info (12022): Found design unit 1: pck_myhdl_011 File: D:/Projects/altera quartus/PyHDLFlexibleDemultiplexer/pck_myhdl_011.vhd Line: 10
+    Info (12022): Found design unit 2: pck_myhdl_011-body File: D:/Projects/altera quartus/PyHDLFlexibleDemultiplexer/pck_myhdl_011.vhd Line: 49
+Info (12021): Found 2 design units, including 1 entities, in source file flexibledemux.vhd
+    Info (12022): Found design unit 1: flexibleDemux-MyHDL File: D:/Projects/altera quartus/PyHDLFlexibleDemultiplexer/flexibleDemux.vhd Line: 22
+    Info (12023): Found entity 1: flexibleDemux File: D:/Projects/altera quartus/PyHDLFlexibleDemultiplexer/flexibleDemux.vhd Line: 13
+Warning (12125): Using design file pyflexibledemultiplexer.bdf, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: PyFlexibleDemultiplexer
+Info (12127): Elaborating entity "PyFlexibleDemultiplexer" for the top level hierarchy
+Info (12128): Elaborating entity "flexibleDemux" for hierarchy "flexibleDemux:inst"
+Warning (10036): Verilog HDL or VHDL warning at flexibleDemux.vhd(40): object "intPinSel" assigned a value but never read File: D:/Projects/altera quartus/PyHDLFlexibleDemultiplexer/flexibleDemux.vhd Line: 40
+Warning (10036): Verilog HDL or VHDL warning at flexibleDemux.vhd(41): object "pinOutBufferVal" assigned a value but never read File: D:/Projects/altera quartus/PyHDLFlexibleDemultiplexer/flexibleDemux.vhd Line: 41
+Error (12012): Port direction mismatch for entity "flexibleDemux:inst" at port "pins_out[0]".  Upper entity is expecting "Output" pin while lower entity is using "Input" pin.
+Error (12012): Port direction mismatch for entity "flexibleDemux:inst" at port "pins_out[1]".  Upper entity is expecting "Output" pin while lower entity is using "Input" pin.
+Error (12012): Port direction mismatch for entity "flexibleDemux:inst" at port "pins_out[2]".  Upper entity is expecting "Output" pin while lower entity is using "Input" pin.
+Error (12012): Port direction mismatch for entity "flexibleDemux:inst" at port "pins_out[3]".  Upper entity is expecting "Output" pin while lower entity is using "Input" pin.
+Error (12012): Port direction mismatch for entity "flexibleDemux:inst" at port "pins_out[4]".  Upper entity is expecting "Output" pin while lower entity is using "Input" pin.
+Error (12012): Port direction mismatch for entity "flexibleDemux:inst" at port "pins_out[5]".  Upper entity is expecting "Output" pin while lower entity is using "Input" pin.
+Error (12012): Port direction mismatch for entity "flexibleDemux:inst" at port "pins_out[6]".  Upper entity is expecting "Output" pin while lower entity is using "Input" pin.
+Error (12012): Port direction mismatch for entity "flexibleDemux:inst" at port "pins_out[7]".  Upper entity is expecting "Output" pin while lower entity is using "Input" pin.
+Error: Quartus Prime Analysis & Synthesis was unsuccessful. 8 errors, 4 warnings
+    Error: Peak virtual memory: 4763 megabytes
+    Error: Processing ended: Sun May 30 15:12:26 2021
+    Error: Elapsed time: 00:00:48
+    Error: Total CPU time (on all processors): 00:01:06
 
 

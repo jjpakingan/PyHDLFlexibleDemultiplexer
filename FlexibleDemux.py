@@ -16,8 +16,8 @@ Environment:
 # -+-+-+-+-+-+-+-+-+-+
 
 UNIT_TEST_ENABLE = 0
-RUN_TEST_BENCH = 1
-RUN_CONVERSION = 0
+RUN_TEST_BENCH = 0
+RUN_CONVERSION = 1
 
 # -+-+-+-+-+-+-+-+
 # -|I|m|p|o|r|t|s|
@@ -44,20 +44,19 @@ def getSignalBool():
 MUX_NUM_BIT_OUT = 8
 MUX_SEL_NUM_BIT = 3
 
+@block
 def flexibleDemux(pin_in, pins_select, pins_out):
 
     @always_comb
     def logic():
         intPinSel = pins_select
-        pinOutBufferVal = getIntbV(MUX_NUM_BIT_OUT)
+        val = 0
         
         for x in range(0,MUX_NUM_BIT_OUT):
             if pin_in==1 and intPinSel==x:
-                pinOutBufferVal[x] = 1
-            else:
-                pinOutBufferVal[x] = 0
+                val = val | (1<<x)
 
-        pins_out.next = pinOutBufferVal
+        pins_out.next = val
 
     return logic
 
@@ -65,7 +64,8 @@ def convert():
     pins_select = Signal(getIntbV(MUX_SEL_NUM_BIT))
     pins_out = Signal(getIntbV(MUX_NUM_BIT_OUT))
     pin_in = getSignalBool()
-    toVHDL(flexibleDemux, pin_in, pins_select, pins_out)
+    inst = flexibleDemux(pin_in, pins_select, pins_out)
+    inst.convert(hdl="VHDL")
 
 # -+-+-+-+-+-+-+-+-+-+-+
 # -|T|e|s|t|-|B|e|n|c|h|
