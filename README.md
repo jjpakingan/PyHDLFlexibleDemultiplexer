@@ -5,11 +5,11 @@ Demonstration of:
  - Testbench Test Trace viewable on GTKWave
 
 Environment:  
-Python 3.9.4 64-bit
-Visual Studio Code
-Altera Quartus Prime 20.1.1 Lite Edition 
-myHDL 0.11
-GTKWave for VCD wave viewing  
+ - Python 3.9.4 64-bit
+ - Visual Studio Code
+ - Altera Quartus Prime 20.1.1 Lite Edition 
+ - myHDL 0.11
+ - GTKWave for VCD wave viewing  
 
 Author: Jeff P
 
