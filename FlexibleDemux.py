@@ -27,15 +27,7 @@ from myhdl import *
 import unittest
 from random import randrange
 
-# -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-# -|M|y|H|D|L|-|U|t|i|l|i|t|i|e|s|
-# -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-def getIntbV(numBit):
-    return intbv(0)[numBit:]
-
-def getSignalBool():
-    return Signal(bool(0))
 
 # -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 # -|F|l|e|x|i|b|l|e|-|D|e|m|u|l|t|i|p|l|e|x|e|r|
@@ -44,28 +36,26 @@ def getSignalBool():
 MUX_NUM_BIT_OUT = 8
 MUX_SEL_NUM_BIT = 3
 
-@block
 def flexibleDemux(pin_in, pins_select, pins_out):
 
     @always_comb
     def logic():
         intPinSel = pins_select
-        val = 0
+        pinOutBufferVal = 0
+        one =  intbv(1)[MUX_NUM_BIT_OUT:]
         
         for x in range(0,MUX_NUM_BIT_OUT):
             if pin_in==1 and intPinSel==x:
-                val = val | (1<<x)
+                pinOutBufferVal = pinOutBufferVal | (one<<x)
 
-        pins_out.next = val
-
+        pins_out.next =  pinOutBufferVal
     return logic
 
 def convert():
-    pins_select = Signal(getIntbV(MUX_SEL_NUM_BIT))
-    pins_out = Signal(getIntbV(MUX_NUM_BIT_OUT))
-    pin_in = getSignalBool()
-    inst = flexibleDemux(pin_in, pins_select, pins_out)
-    inst.convert(hdl="VHDL")
+    pins_select = Signal(intbv(0)[MUX_SEL_NUM_BIT:])
+    pins_out = Signal(intbv(0)[MUX_NUM_BIT_OUT:])
+    pin_in = Signal(intbv(0)[1:])
+    toVHDL(flexibleDemux, pin_in, pins_select, pins_out)
 
 # -+-+-+-+-+-+-+-+-+-+-+
 # -|T|e|s|t|-|B|e|n|c|h|
