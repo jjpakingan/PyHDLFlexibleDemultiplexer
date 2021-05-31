@@ -16,8 +16,8 @@ Environment:
 # -+-+-+-+-+-+-+-+-+-+
 
 UNIT_TEST_ENABLE = 0
-RUN_TEST_BENCH = 1
-RUN_CONVERSION = 0
+RUN_TEST_BENCH = 0
+RUN_CONVERSION = 1
 
 # -+-+-+-+-+-+-+-+
 # -|I|m|p|o|r|t|s|
@@ -36,54 +36,109 @@ from random import randrange
 MUX_NUM_BIT_OUT = 8
 MUX_SEL_NUM_BIT = 3
 
-def flexibleDemux(pin_in, pins_select, pins_out):
+class FlexDemuxPins:
+    In = None
+    Select = None
+    Out = None 
+
+@block
+def flexibleDemux(flexdemuxpins : FlexDemuxPins):
 
     @always_comb
     def logic():
-        intPinSel = pins_select
         pinOutBufferVal = 0
         one =  intbv(1)[MUX_NUM_BIT_OUT:]
         
         for x in range(0,MUX_NUM_BIT_OUT):
-            if pin_in==1 and intPinSel==x:
+            if flexdemuxpins.In==1 and flexdemuxpins.Select==x:
                 pinOutBufferVal = pinOutBufferVal | (one<<x)
 
-        pins_out.next =  pinOutBufferVal
+        flexdemuxpins.Out.next =  pinOutBufferVal
     return logic
 
+# -+-+-+-+-+
+# -|D|-|F|F|
+# -+-+-+-+-+
+
+class DFlipFlopPins:
+    In = None
+    Out = None
+    Clk = None
+
+@block
+def dflipflop(dff_pins:DFlipFlopPins):
+    
+    @always(dff_pins.Clk.posedge)
+    def seq_logic():
+        dff_pins.Out.next = dff_pins.In
+    return seq_logic
+
+# -+-+-+-+-+-+-+-+-+-+
+# -|T|o|p|-|B|l|o|c|k|
+# -+-+-+-+-+-+-+-+-+-+
+
+@block
+def top(flexdemuxpins : FlexDemuxPins, dff_pins:DFlipFlopPins):
+    instflexmux = flexibleDemux(flexdemuxpins)
+    instdff = dflipflop(dff_pins)
+    return instances()
+
+
 def convert():
-    pins_select = Signal(intbv(0)[MUX_SEL_NUM_BIT:])
-    pins_out = Signal(intbv(0)[MUX_NUM_BIT_OUT:])
-    pin_in = Signal(intbv(0)[1:])
-    toVHDL(flexibleDemux, pin_in, pins_select, pins_out)
+    flexdemuxpins = FlexDemuxPins()
+    flexdemuxpins.Select = Signal(intbv(0)[MUX_SEL_NUM_BIT:])
+    flexdemuxpins.In = Signal(bool(0))
+    flexdemuxpins.Out = Signal(intbv(0)[MUX_NUM_BIT_OUT:])
+
+    dffpins = DFlipFlopPins()
+    dffpins.In = Signal(bool(0))
+    dffpins.Out = Signal(bool(0))
+    dffpins.Clk = Signal(bool(0))
+
+    inst = top(flexdemuxpins, dffpins)
+    inst.convert('VHDL')
+
 
 # -+-+-+-+-+-+-+-+-+-+-+
 # -|T|e|s|t|-|B|e|n|c|h|
 # -+-+-+-+-+-+-+-+-+-+-+
 
+@block
 def testbench():
-    clk = Signal(intbv(0)[1:])
-    pins_select = Signal(intbv(0)[MUX_SEL_NUM_BIT:])
-    pins_out = Signal(intbv(0)[MUX_NUM_BIT_OUT:])
-    pin_in = Signal(intbv(0)[1:])
+    flexdemuxpins = FlexDemuxPins()
+    flexdemuxpins.Select = Signal(intbv(0)[MUX_SEL_NUM_BIT:])
+    flexdemuxpins.In = Signal(intbv(0)[1:])
+    flexdemuxpins.Out = Signal(intbv(0)[MUX_NUM_BIT_OUT:])
 
-    flexDemuxInst = flexibleDemux(pin_in, pins_select, pins_out)
+    dffpins = DFlipFlopPins()
+    dffpins.In = Signal(intbv(0)[1:])
+    dffpins.Out = Signal(intbv(0)[1:])
+    dffpins.Clk = Signal(intbv(0)[1:])
+
+    test_clk = Signal(intbv(0)[1:])
+    inst = top(flexdemuxpins, dffpins)
 
     @always(delay(10))
     def clkgen():
-        clk.next = not clk
-        pin_in.next = not pin_in
+        test_clk.next = not test_clk
+        a = not flexdemuxpins.In
+        flexdemuxpins.In.next = a
+        dffpins.In.next = a
 
-    @always(clk.negedge)
+    @always(delay(5))
+    def clkgendff():
+        dffpins.Clk.next = not dffpins.Clk
+
+    @always(test_clk.negedge)
     def stimulus():
-        pins_select.next = randrange(8)
+        flexdemuxpins.Select = randrange(8)
 
-    return flexDemuxInst, clkgen, stimulus
+    return inst, clkgen, clkgendff, stimulus
 
 def simulate(timesteps=5000):
-    tb = traceSignals(testbench)
-    sim = Simulation(tb)
-    sim.run(timesteps)
+    tb = testbench()
+    tb.config_sim(trace=True)
+    tb.run_sim(timesteps)
 
 # -+-+-+-+-+-+-+-+-+-+
 # -|U|n|i|t|-|T|e|s|t|
