@@ -87,12 +87,12 @@ def top(flexdemuxpins : FlexDemuxPins, dff_pins:DFlipFlopPins):
 def convert():
     flexdemuxpins = FlexDemuxPins()
     flexdemuxpins.Select = Signal(intbv(0)[MUX_SEL_NUM_BIT:])
-    flexdemuxpins.In = Signal(intbv(0)[1:])
+    flexdemuxpins.In = Signal(bool(0))
     flexdemuxpins.Out = Signal(intbv(0)[MUX_NUM_BIT_OUT:])
 
     dffpins = DFlipFlopPins()
-    dffpins.In = Signal(intbv(0)[1:])
-    dffpins.Out = Signal(intbv(0)[1:])
+    dffpins.In = Signal(bool(0))
+    dffpins.Out = Signal(bool(0))
     dffpins.Clk = Signal(bool(0))
 
     inst = top(flexdemuxpins, dffpins)
