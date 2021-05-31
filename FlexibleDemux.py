@@ -5,10 +5,10 @@
 
 Author: Jeff P
 Environment:
-    Python 3.8.0 64-bit
-    Ubuntu Linux
+    Python 3.9.4 64-bit
     Visual Studio Code
-    Altera Quartus Prime 19.1 Lite Edition 
+    Altera Quartus Prime 20.1.1 Lite Edition 
+    myHDL 0.11
 '''
 
 # -+-+-+-+-+-+-+-+-+-+
