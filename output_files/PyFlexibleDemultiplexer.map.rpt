@@ -1,6 +1,6 @@
 Analysis & Synthesis report for PyFlexibleDemultiplexer
-Sat May 23 16:44:22 2020
-Quartus Prime Version 19.1.0 Build 670 09/22/2019 SJ Lite Edition
+Sun May 30 22:48:17 2021
+Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
 
 
 ---------------------
@@ -10,14 +10,18 @@ Quartus Prime Version 19.1.0 Build 670 09/22/2019 SJ Lite Edition
   2. Analysis & Synthesis Summary
   3. Analysis & Synthesis Settings
   4. Parallel Compilation
-  5. Analysis & Synthesis Messages
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. General Register Statistics
+  9. Analysis & Synthesis Messages
 
 
 
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 2019  Intel Corporation. All rights reserved.
+Copyright (C) 2020  Intel Corporation. All rights reserved.
 Your use of Intel Corporation's design tools, logic functions 
 and other software and tools, and any partner logic 
 functions, and any output files from any of the foregoing 
@@ -37,11 +41,15 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                              ;
 +-----------------------------+---------------------------------------------+
-; Analysis & Synthesis Status ; Failed - Sat May 23 16:44:22 2020           ;
-; Quartus Prime Version       ; 19.1.0 Build 670 09/22/2019 SJ Lite Edition ;
+; Analysis & Synthesis Status ; Successful - Sun May 30 22:48:17 2021       ;
+; Quartus Prime Version       ; 20.1.1 Build 720 11/11/2020 SJ Lite Edition ;
 ; Revision Name               ; PyFlexibleDemultiplexer                     ;
 ; Top-level Entity Name       ; PyFlexibleDemultiplexer                     ;
 ; Family                      ; MAX II                                      ;
+; Total logic elements        ; 8                                           ;
+; Total pins                  ; 12                                          ;
+; Total virtual pins          ; 0                                           ;
+; UFM blocks                  ; 0 / 1 ( 0 % )                               ;
 +-----------------------------+---------------------------------------------+
 
 
@@ -132,27 +140,105 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------+-------------+
 
 
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                      ;
++----------------------------------+-----------------+------------------------------------------+-----------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                                ; File Name with Absolute Path                                                      ; Library ;
++----------------------------------+-----------------+------------------------------------------+-----------------------------------------------------------------------------------+---------+
+; pck_myhdl_011.vhd                ; yes             ; User VHDL File                           ; D:/Projects/altera quartus/PyHDLFlexibleDemultiplexer/pck_myhdl_011.vhd           ;         ;
+; flexibleDemux.vhd                ; yes             ; User VHDL File                           ; D:/Projects/altera quartus/PyHDLFlexibleDemultiplexer/flexibleDemux.vhd           ;         ;
+; pyflexibledemultiplexer.bdf      ; yes             ; Auto-Found Block Diagram/Schematic File  ; D:/Projects/altera quartus/PyHDLFlexibleDemultiplexer/pyflexibledemultiplexer.bdf ;         ;
++----------------------------------+-----------------+------------------------------------------+-----------------------------------------------------------------------------------+---------+
+
+
++--------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary            ;
++---------------------------------------------+----------+
+; Resource                                    ; Usage    ;
++---------------------------------------------+----------+
+; Total logic elements                        ; 8        ;
+;     -- Combinational with no register       ; 8        ;
+;     -- Register only                        ; 0        ;
+;     -- Combinational with a register        ; 0        ;
+;                                             ;          ;
+; Logic element usage by number of LUT inputs ;          ;
+;     -- 4 input functions                    ; 8        ;
+;     -- 3 input functions                    ; 0        ;
+;     -- 2 input functions                    ; 0        ;
+;     -- 1 input functions                    ; 0        ;
+;     -- 0 input functions                    ; 0        ;
+;                                             ;          ;
+; Logic elements by mode                      ;          ;
+;     -- normal mode                          ; 8        ;
+;     -- arithmetic mode                      ; 0        ;
+;     -- qfbk mode                            ; 0        ;
+;     -- register cascade mode                ; 0        ;
+;     -- synchronous clear/load mode          ; 0        ;
+;     -- asynchronous clear/load mode         ; 0        ;
+;                                             ;          ;
+; Total registers                             ; 0        ;
+; I/O pins                                    ; 12       ;
+; Maximum fan-out node                        ; pin_sel2 ;
+; Maximum fan-out                             ; 8        ;
+; Total fan-out                               ; 40       ;
+; Average fan-out                             ; 2.00     ;
++---------------------------------------------+----------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                    ;
++----------------------------+-------------+--------------+------------+------+--------------+--------------+-------------------+------------------+-----------------+------------+---------------------------------------------+-------------------------+--------------+
+; Compilation Hierarchy Node ; Logic Cells ; LC Registers ; UFM Blocks ; Pins ; Virtual Pins ; LUT-Only LCs ; Register-Only LCs ; LUT/Register LCs ; Carry Chain LCs ; Packed LCs ; Full Hierarchy Name                         ; Entity Name             ; Library Name ;
++----------------------------+-------------+--------------+------------+------+--------------+--------------+-------------------+------------------+-----------------+------------+---------------------------------------------+-------------------------+--------------+
+; |PyFlexibleDemultiplexer   ; 8 (0)       ; 0            ; 0          ; 12   ; 0            ; 8 (0)        ; 0 (0)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |PyFlexibleDemultiplexer                    ; PyFlexibleDemultiplexer ; work         ;
+;    |flexibleDemux:inst|    ; 8 (8)       ; 0            ; 0          ; 0    ; 0            ; 8 (8)        ; 0 (0)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |PyFlexibleDemultiplexer|flexibleDemux:inst ; flexibleDemux           ; work         ;
++----------------------------+-------------+--------------+------------+------+--------------+--------------+-------------------+------------------+-----------------+------------+---------------------------------------------+-------------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 0     ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
 +-------------------------------+
 ; Analysis & Synthesis Messages ;
 +-------------------------------+
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
-    Info: Version 19.1.0 Build 670 09/22/2019 SJ Lite Edition
-    Info: Processing started: Sat May 23 16:44:07 2020
+    Info: Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
+    Info: Processing started: Sun May 30 22:47:44 2021
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off PyFlexibleDemultiplexer -c PyFlexibleDemultiplexer
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
 Info (12021): Found 2 design units, including 0 entities, in source file pck_myhdl_011.vhd
-    Info (12022): Found design unit 1: pck_myhdl_011 File: /home/jjj/altera/FlexibleMux/pck_myhdl_011.vhd Line: 10
-    Info (12022): Found design unit 2: pck_myhdl_011-body File: /home/jjj/altera/FlexibleMux/pck_myhdl_011.vhd Line: 49
-Info (12021): Found 2 design units, including 1 entities, in source file flexibleDemux.vhd
-    Info (12022): Found design unit 1: flexibleDemux-MyHDL File: /home/jjj/altera/FlexibleMux/flexibleDemux.vhd Line: 22
-    Info (12023): Found entity 1: flexibleDemux File: /home/jjj/altera/FlexibleMux/flexibleDemux.vhd Line: 13
-Error (12007): Top-level design entity "PyFlexibleDemultiplexer" is undefined
-Error: Quartus Prime Analysis & Synthesis was unsuccessful. 1 error, 1 warning
-    Error: Peak virtual memory: 931 megabytes
-    Error: Processing ended: Sat May 23 16:44:22 2020
-    Error: Elapsed time: 00:00:15
-    Error: Total CPU time (on all processors): 00:00:36
+    Info (12022): Found design unit 1: pck_myhdl_011 File: D:/Projects/altera quartus/PyHDLFlexibleDemultiplexer/pck_myhdl_011.vhd Line: 10
+    Info (12022): Found design unit 2: pck_myhdl_011-body File: D:/Projects/altera quartus/PyHDLFlexibleDemultiplexer/pck_myhdl_011.vhd Line: 49
+Info (12021): Found 2 design units, including 1 entities, in source file flexibledemux.vhd
+    Info (12022): Found design unit 1: flexibleDemux-MyHDL File: D:/Projects/altera quartus/PyHDLFlexibleDemultiplexer/flexibleDemux.vhd Line: 22
+    Info (12023): Found entity 1: flexibleDemux File: D:/Projects/altera quartus/PyHDLFlexibleDemultiplexer/flexibleDemux.vhd Line: 13
+Warning (12125): Using design file pyflexibledemultiplexer.bdf, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: PyFlexibleDemultiplexer
+Info (12127): Elaborating entity "PyFlexibleDemultiplexer" for the top level hierarchy
+Info (12128): Elaborating entity "flexibleDemux" for hierarchy "flexibleDemux:inst"
+Info (21057): Implemented 20 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 4 input pins
+    Info (21059): Implemented 8 output pins
+    Info (21061): Implemented 8 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 2 warnings
+    Info: Peak virtual memory: 4775 megabytes
+    Info: Processing ended: Sun May 30 22:48:17 2021
+    Info: Elapsed time: 00:00:33
+    Info: Total CPU time (on all processors): 00:01:05
 
 
