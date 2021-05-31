@@ -93,7 +93,7 @@ def convert():
     dffpins = DFlipFlopPins()
     dffpins.In = Signal(intbv(0)[1:])
     dffpins.Out = Signal(intbv(0)[1:])
-    dffpins.Clk = Signal(intbv(0)[1:])
+    dffpins.Clk = Signal(bool(0))
 
     inst = top(flexdemuxpins, dffpins)
     inst.convert('VHDL')

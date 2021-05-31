@@ -47,8 +47,6 @@ set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (Verilog)"
-set_global_assignment -name VHDL_FILE pck_myhdl_011.vhd
-set_global_assignment -name VHDL_FILE flexibleDemux.vhd
 set_location_assignment PIN_2 -to pin_in
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to pin_in
 set_location_assignment PIN_3 -to pin_sel0
@@ -66,3 +64,6 @@ set_location_assignment PIN_54 -to pin_out[4]
 set_location_assignment PIN_55 -to pin_out[5]
 set_location_assignment PIN_56 -to pin_out[6]
 set_location_assignment PIN_57 -to pin_out[7]
+set_global_assignment -name VHDL_FILE top.vhd
+set_global_assignment -name VHDL_FILE pck_myhdl_011.vhd
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "NO HEAT SINK WITH STILL AIR"
