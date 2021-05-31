@@ -68,11 +68,11 @@ class DFlipFlopPins:
     Clk = None
 
 @block
-def dflipflop(pins:DFlipFlopPins):
+def dflipflop(dff_pins:DFlipFlopPins):
     
-    @always(pins.Clk.posedge)
+    @always(dff_pins.Clk.posedge)
     def seq_logic():
-        pins.Out.next = pins.In
+        dff_pins.Out.next = dff_pins.In
     return seq_logic
 
 # -+-+-+-+-+-+-+-+-+-+
@@ -115,13 +115,12 @@ def testbench():
     dffpins.Out = Signal(intbv(0)[1:])
     dffpins.Clk = Signal(intbv(0)[1:])
 
-    clk = Signal(intbv(0)[1:])
-    #flexDemuxInst = flexibleDemux(pin_in, pins_select, pins_out)
+    test_clk = Signal(intbv(0)[1:])
     inst = top(flexdemuxpins, dffpins)
 
     @always(delay(10))
     def clkgen():
-        clk.next = not clk
+        test_clk.next = not test_clk
         a = not flexdemuxpins.In
         flexdemuxpins.In.next = a
         dffpins.In.next = a
@@ -130,7 +129,7 @@ def testbench():
     def clkgendff():
         dffpins.Clk.next = not dffpins.Clk
 
-    @always(clk.negedge)
+    @always(test_clk.negedge)
     def stimulus():
         flexdemuxpins.Select = randrange(8)
 
