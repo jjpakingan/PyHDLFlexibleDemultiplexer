@@ -65,7 +65,7 @@ def dflipflop(pin_in, pin_out, clk):
 @block
 def top(mux_pin_in, mux_pins_select, mux_pins_out, dff_pin_out, dff_clk):
     instflexmux = flexibleDemux(mux_pin_in, mux_pins_select, mux_pins_out)
-    # instdff = dflipflop(mux_pins_out, dff_pin_out, dff_clk)
+    instdff = dflipflop(mux_pin_in, dff_pin_out, dff_clk)
     return instances()
 
 # def convert():
