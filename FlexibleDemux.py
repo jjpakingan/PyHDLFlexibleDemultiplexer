@@ -36,20 +36,24 @@ from random import randrange
 MUX_NUM_BIT_OUT = 8
 MUX_SEL_NUM_BIT = 3
 
+class FlexDemuxPins:
+    Pin_In = None
+    Pin_Select = None
+    Pin_Out = None 
+
 @block
-def flexibleDemux(pin_in, pins_select, pins_out):
+def flexibleDemux(flexdemuxpins : FlexDemuxPins):
 
     @always_comb
     def logic():
-        intPinSel = pins_select
         pinOutBufferVal = 0
         one =  intbv(1)[MUX_NUM_BIT_OUT:]
         
         for x in range(0,MUX_NUM_BIT_OUT):
-            if pin_in==1 and intPinSel==x:
+            if flexdemuxpins.Pin_In==1 and flexdemuxpins.Pin_Select==x:
                 pinOutBufferVal = pinOutBufferVal | (one<<x)
 
-        pins_out.next =  pinOutBufferVal
+        flexdemuxpins.Pin_Out.next =  pinOutBufferVal
     return logic
 
 
@@ -63,9 +67,9 @@ def dflipflop(pin_in, pin_out, clk):
 
 
 @block
-def top(mux_pin_in, mux_pins_select, mux_pins_out, dff_pin_out, dff_clk):
-    instflexmux = flexibleDemux(mux_pin_in, mux_pins_select, mux_pins_out)
-    instdff = dflipflop(mux_pin_in, dff_pin_out, dff_clk)
+def top(flexdemuxpins : FlexDemuxPins, dff_pin_out, dff_clk):
+    instflexmux = flexibleDemux(flexdemuxpins)
+    instdff = dflipflop(flexdemuxpins.Pin_In, dff_pin_out, dff_clk)
     return instances()
 
 # def convert():
@@ -88,19 +92,21 @@ def convert():
 
 @block
 def testbench():
+    flexdemuxpins = FlexDemuxPins()
+    flexdemuxpins.Pin_Select = Signal(intbv(0)[MUX_SEL_NUM_BIT:])
+    flexdemuxpins.Pin_In = Signal(intbv(0)[1:])
+    flexdemuxpins.Pin_Out = Signal(intbv(0)[MUX_NUM_BIT_OUT:])
+
     clk = Signal(intbv(0)[1:])
-    pins_select = Signal(intbv(0)[MUX_SEL_NUM_BIT:])
-    pins_out = Signal(intbv(0)[MUX_NUM_BIT_OUT:])
-    pin_in = Signal(intbv(0)[1:])
     dff_clk_in = Signal(intbv(0)[1:])
     dff_pin_out = Signal(intbv(0)[1:])
     #flexDemuxInst = flexibleDemux(pin_in, pins_select, pins_out)
-    inst = top(pin_in, pins_select, pins_out, dff_pin_out, dff_clk_in)
+    inst = top(flexdemuxpins, dff_pin_out, dff_clk_in)
 
     @always(delay(10))
     def clkgen():
         clk.next = not clk
-        pin_in.next = not pin_in
+        flexdemuxpins.Pin_In.next = not flexdemuxpins.Pin_In
 
     @always(delay(5))
     def clkgendff():
@@ -108,7 +114,7 @@ def testbench():
 
     @always(clk.negedge)
     def stimulus():
-        pins_select.next = randrange(8)
+        flexdemuxpins.Pin_Select = randrange(8)
 
     return inst, clkgen, clkgendff, stimulus
 
