@@ -16,8 +16,8 @@ Environment:
 # -+-+-+-+-+-+-+-+-+-+
 
 UNIT_TEST_ENABLE = 0
-RUN_TEST_BENCH = 0
-RUN_CONVERSION = 1
+RUN_TEST_BENCH = 1
+RUN_CONVERSION = 0
 
 # -+-+-+-+-+-+-+-+
 # -|I|m|p|o|r|t|s|
@@ -62,10 +62,10 @@ def convert():
 # -+-+-+-+-+-+-+-+-+-+-+
 
 def testbench():
-    clk = getSignalBool()
-    pins_select = Signal(getIntbV(MUX_SEL_NUM_BIT))
-    pins_out = Signal(getIntbV(MUX_NUM_BIT_OUT))
-    pin_in = getSignalBool()
+    clk = Signal(intbv(0)[1:])
+    pins_select = Signal(intbv(0)[MUX_SEL_NUM_BIT:])
+    pins_out = Signal(intbv(0)[MUX_NUM_BIT_OUT:])
+    pin_in = Signal(intbv(0)[1:])
 
     flexDemuxInst = flexibleDemux(pin_in, pins_select, pins_out)
 
@@ -91,7 +91,7 @@ def simulate(timesteps=5000):
 
 class TestMyHDLMethods(unittest.TestCase):
     def test_intbvlength(self):
-        b = getIntbV(3)
+        b = intbv(0)[3:]
         self.assertEqual(len(b),3)
 
 # -+-+-+-+-+
